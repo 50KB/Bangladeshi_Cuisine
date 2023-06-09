@@ -22,9 +22,10 @@ app.get('/recipe/name/:name', async(req, res) => {
     const collection = db.collection('Recipes');
     const recipe = await collection.findOne({ name: req.params.name });
     if (!recipe) {
-        res.status(404).send('Recipe not found');
+        res.status(404).json([{ _id: 0, name: 'Recipe not found' }]);
         return;
     }
+
     res.send(recipe);
 });
 
@@ -36,8 +37,7 @@ app.get('/recipe/serving/:serving', async(req, res) => {
     const recipes = await collection.find({ serving: servingSize }).toArray();
 
     if (recipes.length === 0) {
-        res.status(404).send('No recipes found for the specified serving size');
-        return;
+        recipes.push({ _id: 0, name: 'No recipe found for this specified Serving' });
     }
 
     res.send(recipes);
@@ -51,8 +51,7 @@ app.get('/recipe/cooktime/:time', async(req, res) => {
     const recipes = await collection.find({ time: cookTime }).toArray();
 
     if (recipes.length === 0) {
-        res.status(404).send('No recipes found for the specified cook time');
-        return;
+        recipes.push({ _id: 0, name: 'No recipe found for the specified cook time' });
     }
 
     res.send(recipes);

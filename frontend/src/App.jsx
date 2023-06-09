@@ -7,19 +7,23 @@ function App() {
   const [ingredientName, setIngredientName] = useState('');
   const [servnum, setServnum] = useState('');
   const [ct, setCt] = useState('');
+  const [searchPerformed, setSearchPerformed] = useState(false);
+  const [searchResult, setSearchResult] = useState(true);
+  
 
   const handleIngredientSearch = () => {
     fetch(`http://localhost:5000/recipe/name/${ingredientName}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setRecipes([data]);
+        setRecipes(data);
+        setSearchPerformed(true);
+        setSearchResult(data.length > 0);
       })
       .catch((error) => {
         console.error('Error retrieving recipes:', error);
       });
   };
-
 
   const handleDietSearch = () => {
     fetch(`http://localhost:5000/recipe/serving/${servnum}`)
@@ -27,6 +31,8 @@ function App() {
       .then((data) => {
         console.log(data);
         setRecipes(data);
+        setSearchPerformed(true);
+        setSearchResult(data.length > 0);
       })
       .catch((error) => {
         console.error('Error retrieving recipes:', error);
@@ -39,28 +45,13 @@ function App() {
       .then((data) => {
         console.log(data);
         setRecipes(data);
+        setSearchPerformed(true);
+        setSearchResult(data.length > 0);
       })
       .catch((error) => {
         console.error('Error retrieving recipes:', error);
       });
   };
-
-  const handleKeyDownR = (e) => {
-    if (e.key === 'Enter') {
-      handleIngredientSearch();
-    }
-  };
-  const handleKeyDownS = (e) => {
-    if (e.key === 'Enter') {
-      handleDietSearch();
-    }
-  };
-  const handleKeyDownC = (e) => {
-    if (e.key === 'Enter') {
-      handleCtSearch();
-    }
-  };
-  
 
   useEffect(() => {
     fetch('http://localhost:5000/recipes')
@@ -75,9 +66,8 @@ function App() {
   }, []);
 
   return (
-    
     <div className="app" style={{ backgroundImage: `url(${backgroundImage})` }}>
-      <h1>Bangldeshi Recipes</h1>
+      <h1>Bangladeshi Recipes</h1>
       <div className="search-container">
         <div className="search-box">
           <h2>Search by Recipe</h2>
@@ -86,7 +76,6 @@ function App() {
             placeholder="Enter Recipe Name..."
             value={ingredientName}
             onChange={(e) => setIngredientName(e.target.value)}
-            onKeyDown={handleKeyDownR}
           />
           <button onClick={handleIngredientSearch}>Search</button>
         </div>
@@ -98,7 +87,6 @@ function App() {
             placeholder="Enter Servings Number.."
             value={servnum}
             onChange={(e) => setServnum(e.target.value)}
-            onKeyDown={handleKeyDownS}
           />
           <button onClick={handleDietSearch}>Search</button>
         </div>
@@ -110,7 +98,6 @@ function App() {
             placeholder="Enter Cook Time.."
             value={ct}
             onChange={(e) => setCt(e.target.value)}
-            onKeyDown={handleKeyDownC}
           />
           <button onClick={handleCtSearch}>Search</button>
         </div>
@@ -119,24 +106,31 @@ function App() {
       <div className="recipe-container">
         <h2>Recipes</h2>
         <div className="recipe-list">
-          {recipes.map((recipe, index) => (
-            <div className="recipe-card" key={recipe._id}>
-              <h3>{recipe.name}</h3>
-              <p>
-                <b>Ingredients:</b> {recipe.ingredients}
-              </p>
-              <p>
-                <b>Serving:</b> {recipe.serving}
-              </p>
-              <p>
-                <b>Time:</b> {recipe.time} minutes
-              </p>
-            </div>
-          ))}
+          {searchPerformed && !searchResult ? (
+            <div style={{ position: 'relative', zIndex: 9999, display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '18px' }}>
+            <div className="recipe-card">
+              <h3>No recipe found</h3>
+              </div>
+              </div>
+          ) : (
+            recipes.map((recipe, index) => (
+              <div className="recipe-card" key={recipe._id}>
+                <h3>{recipe.name}</h3>
+                <p>
+                  <b>Ingredients:</b> {recipe.ingredients}
+                </p>
+                <p>
+                  <b>Serving:</b> {recipe.serving}
+                </p>
+                <p>
+                  <b>Time:</b> {recipe.time} minutes
+                </p>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
-
   );
 }
 

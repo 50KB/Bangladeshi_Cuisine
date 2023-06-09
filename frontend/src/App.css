@@ -115,3 +115,12 @@ button {
     color: white;
     font-size: 18px;
 }
+
+.norecipe-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Adjust the height to cover the full viewport if needed */
+    font-size: 18px;
+}
