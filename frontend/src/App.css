@@ -1,0 +1,117 @@
+/* App.css */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* test*/
+
+.app {
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    text-align: center;
+    margin: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #B7CEEC;
+    font-family: "Helvetica", sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    font-style: italic;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+    ;
+    /* Custom color */
+    font-family: "Helvetica", sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    font-style: italic;
+    /* Add font-style property */
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+}
+
+h2 {
+    margin-top: 20px;
+    color: white;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+
+/* Search container styles */
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    margin: 0 10px;
+}
+
+input[type='text'] {
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* Recipe container styles */
+
+.recipe-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recipe-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.recipe-card {
+    background-image: url('./image/card.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-size: 18px;
+}
